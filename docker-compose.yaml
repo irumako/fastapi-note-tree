@@ -4,8 +4,25 @@ volumes:
   postgres_data:
     driver: local
   mongo_data:
+  neo4j_data:
+  neo4j_plugins:
 
 services:
+  neo4j:
+    image: neo4j
+    volumes:
+      - neo4j_data:/data
+      - neo4j_plugins:/plugins
+    restart: always
+    environment:
+      - NEO4J_apoc_export_file_enabled=true
+      - NEO4J_apoc_import_file_enabled=true
+      - NEO4J_apoc_import_file_use__neo4j__config=true
+      - NEO4J_PLUGINS=["apoc"]
+    ports:
+      - '7474:7474'
+      - '7687:7687'
+
   mongo:
     image: mongo
     volumes:
