@@ -1,7 +1,9 @@
-import motor.motor_asyncio
+from neontology import GraphConnection
 
 from .config import settings
 
-client = motor.motor_asyncio.AsyncIOMotorClient(str(settings.MONGODB_URL))
-db = client.note
-collection = db.get_collection("notes")
+gc = GraphConnection(
+    neo4j_uri=settings.NEO4J_URI,
+    neo4j_username=settings.NEO4J_USERNAME,
+    neo4j_password=settings.NEO4J_PASSWORD.get_secret_value(),
+)
