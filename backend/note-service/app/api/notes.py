@@ -23,7 +23,7 @@ router = APIRouter(
     status_code=status.HTTP_201_CREATED,
     response_model_by_alias=False,
 )
-async def create_student(note: NoteModel = Body(...), user: User = Depends(valid_access_token)):
+async def create_note(note: NoteModel = Body(...), user: User = Depends(valid_access_token)):
     note.owner = user.id
     new_note = await note_collection.insert_one(
         note.model_dump(by_alias=True, exclude=["id"])

@@ -15,8 +15,7 @@ async def get_structure(pp: str = Depends(project_permission)):
     cypher_query = f"""
     MATCH p=(n:Project {{id: "{pp}"}})<-[:INCLUDE_IN*]-(m)
     WITH COLLECT(p) AS ps
-    CALL apoc.convert.toTree(ps, true, 
-    {{nodes: {{Project: ['id', 'desc', 'name'], Note: ['id']}}, rels:  {{include_in: ['_elementId']}}}}) yield value
+    CALL apoc.convert.toTree(ps, true,{{nodes: {{Project: ['id', 'desc', 'name'], Note: ['id']}}, rels:  {{include_in: ['_elementId']}}}}) yield value
     RETURN value;
     """
 
